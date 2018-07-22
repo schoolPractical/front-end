@@ -2,7 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 // 导入element-ui
-import { Tabs, TabPane } from 'element-ui';
+import { Input, Select, Option, DatePicker, Button, Alert, MessageBox } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import API from '@/api/index';
 import App from './App';
@@ -10,8 +11,13 @@ import router from './router';
 
 import components from './components';
 
-Vue.use(Tabs);
-Vue.use(TabPane);
+Vue.use(Input);
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(DatePicker);
+Vue.use(Button);
+Vue.use(Alert);
+Vue.prototype.$alert = MessageBox.alert;
 
 Vue.config.productionTip = false;
 

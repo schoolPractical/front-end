@@ -1,5 +1,7 @@
-import Demo from './Demo';
+import LoopImg from './LoopImg';
+import ChoseTicket from './ChoseTicket';
 
 export default {
-  Demo,
+  LoopImg,
+  ChoseTicket,
 };
