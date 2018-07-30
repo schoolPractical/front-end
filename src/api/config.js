@@ -10,6 +10,7 @@ const instance = axios.create({
   transformResponse(res) {
     // res是返回值
     console.log(res);
+    return res;
   },
 });
 

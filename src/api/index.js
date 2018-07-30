@@ -1,5 +1,5 @@
-import ajax from './ajax';
+import user from './user';
 
 export default {
-  ajax,
+  user,
 };

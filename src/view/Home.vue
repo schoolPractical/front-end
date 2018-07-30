@@ -39,6 +39,7 @@ export default {
   height: 100%;
   color: #fff;
   background: #757b9c;
+  overflow: hidden;
 }
 .head, .footer, .footerIcon {
   display: flex;
