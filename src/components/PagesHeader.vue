@@ -6,28 +6,42 @@
     <p class="slogan">合纵机票</p>
     <div class="loginStatus">
       <img src="../assets/registered.png" class="headerImg">
-      <p>注册</p>
+      <p @click="showRegist=true">注册</p>
       <img src="../assets/login.jpg" class="headerImg">
       <p @click="showLogin=true">登录</p>
     </div>
-    <login v-if="showLogin" @closeLogin="showLogin=false"/>
+    <login v-if="showLogin" @closeLogin="showLogin=false" @switch="switchFun"/>
+    <regist v-if="showRegist" @closeRegist="showRegist=false" @switch="switchFun"/>
+    <re-password v-if="showRePassword" @closeRePassword="showRePassword=false"/>
   </div>
 </template>
 
 <script>
 import Login from './userHand/Login';
+import Regist from './userHand/Regist';
+import RePassword from './userHand/RePassword';
 
 export default {
   name: 'PagesHeader',
   components: {
     Login,
+    Regist,
+    RePassword,
   },
   data() {
     return {
       showLogin: false,
+      showRegist: false,
+      showRePassword: false,
     };
   },
   methods: {
+    switchFun(val) {
+      this.showLogin = false;
+      this.showRegist = false;
+      this.showRePassword = false;
+      this[val] = true;
+    },
   },
 };
 </script>

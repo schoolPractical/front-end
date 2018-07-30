@@ -1,15 +1,17 @@
 <template>
-  <div id="Login" class="Login">
-    <div class="loginBox">
-      <img src="@/assets/btn-close.png" @click="closeLogin">
-      <div class="loginTitle">登录</div>
+  <div id="Regist" class="Regist">
+    <div class="RegistBox">
+      <img src="@/assets/btn-close.png" @click="closeRegist">
+      <div class="RegistTitle">注册</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
+      <el-input v-model="emial" placeholder="邮箱"></el-input>
+      <el-input v-model="phone" placeholder="电话号码"></el-input>
       <el-input v-model="password" placeholder="密码"></el-input>
-      <div class="forgot" @click="forgotPass">忘记密码</div>
-      <el-button type="success" @click="loginFun">登录</el-button>
-      <div class="loginFooter">
-        <span>没有账号?</span>
-        <span class="newCount" @click="creatNewCount">创建账号</span>
+      <el-input v-model="repassword" placeholder="再次输入密码"></el-input>
+      <el-button type="success" @click="RegistFun">注册</el-button>
+      <div class="RegistFooter">
+        <span>已经拥有账号?</span>
+        <span class="newCount" @click="switchLogin">登录</span>
       </div>
     </div>
   </div>
@@ -17,47 +19,48 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Regist',
   data() {
     return {
       userName: '',
+      emial: '',
+      phone: '',
       password: '',
+      repassword: '',
     };
   },
   methods: {
     // 取消登录
-    closeLogin() {
-      this.$emit('closeLogin');
+    closeRegist() {
+      this.$emit('closeRegist');
     },
     // 登录操作
-    loginFun() {
-      if (!this.emial || !this.password) {
+    RegistFun() {
+      if (this.repassword !== this.password) {
+        alert('两次密码不一样');
+      } else if (!this.userName || !this.password || !this.emial || !this.phone) {
         alert('请输入用户名和密码');
       } else {
         // 交互操作
         //
-        // this.$ajax.user.signin(this.userName, this.password).then((res) => {
+        // this.$ajax.user.register(this.userName, this.password, this.emial, this.phone).then((res) => {
         //   console.log(res);
         // });
       }
     },
-    // 忘记密码
-    forgotPass() {
-      this.$emit('switch', 'showRePassword');
-    },
     // 创建账号
-    creatNewCount() {
-      this.$emit('switch', 'showRegist');
+    switchLogin() {
+      this.$emit('switch', 'showLogin');
     },
   },
 };
 </script>
 
 <style scoped>
-.Login * {
+.Regist * {
   line-height: normal;
 }
-.Login{
+.Regist{
   position: fixed;
   display: flex;
   justify-content: center;
@@ -67,32 +70,32 @@ export default {
   top: 0;
   background: rgba(0, 0, 0, .3);
 }
-.loginBox {
+.RegistBox {
   position: relative;
   width: 300px;
-  height: 400px;
+  height: 550px;
   padding: 30px;
   background: #fff;
 }
-.loginBox img {
+.RegistBox img {
   position: absolute;
   top: -15px;
   right: -15px;
   cursor: pointer;
 }
-.loginTitle {
+.RegistTitle {
   padding: 50px 30px;
   font-size: 20px;
   color: #000;
 }
-.loginBox .el-input {
+.RegistBox .el-input {
   margin-bottom: 20px;
 }
-.Login .el-button {
+.Regist .el-button {
   width: 100%;
   background:  rgb(50, 208, 147);
 }
-.loginFooter {
+.RegistFooter {
   position: absolute;
   bottom: 30px;
   margin-left: 80px;
