@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Login from './Login';
+import Login from './userHand/Login';
 
 export default {
   name: 'PagesHeader',
