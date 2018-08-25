@@ -1,15 +1,14 @@
 <template>
   <div id="Login" class="Login">
     <div class="loginBox">
-      <img src="@/assets/btn-close.png" @click="closeLogin">
       <div class="loginTitle">登录</div>
-      <el-input v-model="userName" placeholder="用户名"></el-input>
-      <el-input v-model="password" placeholder="密码"></el-input>
-      <div class="forgot" @click="forgotPass">忘记密码</div>
-      <el-button type="success" @click="loginFun">登录</el-button>
+      <el-input v-model="userName" placeholder="邮箱地址"></el-input>
+      <el-input type="password" v-model="password" placeholder="密码"></el-input>
+      <div class="forgot" @click="switchPage('repassword')">忘记密码</div>
+      <el-button type="success" @click="loginFun" class="redbtn">登录</el-button>
       <div class="loginFooter">
         <span>没有账号?</span>
-        <span class="newCount" @click="creatNewCount">创建账号</span>
+        <span class="newCount" @click="switchPage('regist')">创建账号</span>
       </div>
     </div>
   </div>
@@ -25,29 +24,21 @@ export default {
     };
   },
   methods: {
-    // 取消登录
-    closeLogin() {
-      this.$emit('closeLogin');
-    },
     // 登录操作
     loginFun() {
       if (!this.emial || !this.password) {
-        alert('请输入用户名和密码');
+        this.$alert('请输入用户名和密码', {
+          confirmButtonText: '确定',
+        });
       } else {
-        // 交互操作
-        //
-        // this.$ajax.user.signin(this.userName, this.password).then((res) => {
-        //   console.log(res);
-        // });
+        this.$ajax.user.signin(this.userName, this.password).then((res) => {
+          // console.log(res);
+        });
       }
     },
     // 忘记密码
-    forgotPass() {
-      this.$emit('switch', 'showRePassword');
-    },
-    // 创建账号
-    creatNewCount() {
-      this.$emit('switch', 'showRegist');
+    switchPage(val) {
+      this.$emit('switch', val);
     },
   },
 };
@@ -65,7 +56,6 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  background: rgba(0, 0, 0, .3);
 }
 .loginBox {
   position: relative;
@@ -74,15 +64,10 @@ export default {
   padding: 30px;
   background: #fff;
 }
-.loginBox img {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  cursor: pointer;
-}
 .loginTitle {
   padding: 50px 30px;
   font-size: 20px;
+  text-align: center;
   color: #000;
 }
 .loginBox .el-input {
@@ -100,15 +85,17 @@ export default {
   color: rgb(181, 181, 192);
 }
 .newCount {
-  color: rgb(50, 208, 147);
+  color: rgb(254, 169, 166);
+  font-weight: 600;
   cursor: pointer;
 }
 .forgot {
   position: absolute;
-  right: 30px;
-  padding: 10px;
-  margin-top: -60px;
+  right: 31px;
+  padding: 8px 10px;
+  margin-top: -59px;
   background: #fff;
+  color: #000;
   cursor: pointer;
 }
 </style>

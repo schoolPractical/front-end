@@ -1,13 +1,13 @@
 <template>
   <div id="RePassword" class="RePassword">
     <div class="RePasswordBox">
-      <img src="@/assets/btn-close.png" @click="closeRePassword">
       <div class="RePasswordTitle">忘记密码</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
       <el-input v-model="emial" placeholder="邮箱"></el-input>
       <el-input v-model="phone" placeholder="电话号码"></el-input>
       <el-input v-model="password" placeholder="新密码"></el-input>
-      <el-button type="success" @click="RePasswordFun">修改密码</el-button>
+      <el-button type="success" @click="RePasswordFun" class="redbtn">修改密码</el-button>
+      <el-button type="success" @click="switchLogin" class="return">返回登录</el-button>
     </div>
   </div>
 </template>
@@ -24,17 +24,13 @@ export default {
     };
   },
   methods: {
-    // 取消登录
-    closeRePassword() {
-      this.$emit('closeRePassword');
-    },
-    // 登录操作
+    // 修改密码
     RePasswordFun() {
-      // 交互操作
-      //
-      // this.$ajax.user.repassword(this.userName, this.password, this.emial, this.phone).then((res) => {
-      //   console.log(res);
-      // });
+
+    },
+    // 创建账号
+    switchLogin() {
+      this.$emit('switch', 'login');
     },
   },
 };
@@ -52,25 +48,19 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  background: rgba(0, 0, 0, .3);
 }
 .RePasswordBox {
   position: relative;
   width: 300px;
-  height: 450px;
+  height: 500px;
   padding: 30px;
   background: #fff;
-}
-.RePasswordBox img {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  cursor: pointer;
 }
 .RePasswordTitle {
   padding: 50px 30px;
   font-size: 20px;
   color: #000;
+  text-align: center;
 }
 .RePasswordBox .el-input {
   margin-bottom: 20px;
@@ -97,5 +87,9 @@ export default {
   margin-top: -60px;
   background: #fff;
   cursor: pointer;
+}
+.return {
+  margin-left: 0;
+  margin-top: 15px;
 }
 </style>

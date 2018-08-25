@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 // 导入element-ui
-import { Input, Select, Option, DatePicker, Button, Alert, MessageBox } from 'element-ui';
+import { Input, Button, Alert, MessageBox } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import API from '@/api/index';
@@ -11,10 +11,9 @@ import router from './router';
 
 import components from './components';
 
+import './style/style.css';
+
 Vue.use(Input);
-Vue.use(Select);
-Vue.use(Option);
-Vue.use(DatePicker);
 Vue.use(Button);
 Vue.use(Alert);
 Vue.prototype.$alert = MessageBox.alert;

@@ -1,0 +1,28 @@
+.bg1 {
+  background: url('../assets/bg/1.gif');
+}
+
+.bg2 {
+  background: url('../assets/bg/2.gif');
+}
+
+.bg3 {
+  background: url('../assets/bg/3.gif');
+}
+
+.bg4 {
+  background: url('../assets/bg/4.jpg');
+}
+
+.bg5 {
+  background: url('../assets/bg/5.jpg');
+}
+
+.el-input.is-active .el-input__inner,
+.el-input__inner:focus {
+  border-color: rgb(254, 179, 174);
+}
+.el-button.redbtn {
+  background: rgb(255, 144, 140) !important;
+  border-color: rgb(255, 144, 140);
+}

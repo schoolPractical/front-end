@@ -8,8 +8,6 @@ const instance = axios.create({
   withCredentials: true,
   baseURL: defaultHost,
   transformResponse(res) {
-    // res是返回值
-    console.log(res);
     return res;
   },
 });

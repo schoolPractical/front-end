@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/view/Home';
-import Flights from '@/view/Flights';
+import Shops from '@/view/Shops';
 
 Vue.use(Router);
 
@@ -14,9 +14,9 @@ export default new Router({
       name: 'Home',
     },
     {
-      path: '/flights',
-      component: Flights,
-      name: 'Flights',
+      path: '/shops',
+      component: Shops,
+      name: 'Shops',
     },
   ],
 });

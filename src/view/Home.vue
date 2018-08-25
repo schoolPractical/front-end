@@ -1,34 +1,46 @@
 <template>
-  <div id="Home" class="home">
-    <div class="head">
-      <img class="headLogo" src="../assets/logo.png" alt="logo">
-      <img class="mine" src="../assets/mine.png" alt="个人中心">
-    </div>
-    <loop-img />
-    <chose-ticket />
-    <div class="footer">
-      <div class="footerIcon">
-        <div class="footerLogo">
-          <img src="../assets/logo.png" alt="logo">
-          <span>合纵机票</span>
-        </div>
-        <img src="../assets/qq.png" alt="qq">
-        <img src="../assets/wb.png" alt="微博">
-        <img src="../assets/wx.png" alt="微信">
-        <img src="../assets/email.png" alt="邮箱" style="width: 37px;height:28px;">
-      </div>
-      <span class="aboutMe">关于我们</span>
-      <div class="bottom">重庆夏季八整有限责任公司</div>
-    </div>
+  <div id="Home" class="home" :class="bgimg[bgNum]">
+    <div class="cover"></div>
+    <transition name="fade">
+      <login v-if="show==='login'" @switch="change" />
+    </transition>
+    <transition name="fade">
+      <Regist v-show="show==='regist'" @switch="change" />
+    </transition>
+    <transition name="fade">
+      <RePassword v-show="show==='repassword'" @switch="change" />
+    </transition>
   </div>
 </template>
 
 <script>
+import Login from '../components/userHand/Login';
+import Regist from '../components/userHand/Regist';
+import RePassword from '../components/userHand/RePassword';
+
 export default {
   name: 'Home',
+  components: {
+    Login,
+    Regist,
+    RePassword,
+  },
+  computed: {
+    // 随机数取背景
+    bgNum() {
+      return Math.floor(Math.random() * 5);
+    },
+  },
   data() {
     return {
+      show: 'login',
+      bgimg: ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'], // 存储背景图名
     };
+  },
+  methods: {
+    change(val) {
+      this.show = val;
+    },
   },
 };
 </script>
@@ -38,61 +50,26 @@ export default {
   width: 100%;
   height: 100%;
   color: #fff;
-  background: #757b9c;
   overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 20%;
 }
-.head, .footer, .footerIcon {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-.head {
-  justify-content: space-between;
-  padding: 30px 10vw;
-}
-.headLogo {
-  width: 40px;
-  cursor: pointer;
-}
-.mine {
-  width: 20px;
-  cursor: pointer;
-}
-.footer {
+.cover{
   position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 22%;
-  padding-bottom: 37px;
-  font-size: 13px;
-  background: #404157;
-  box-sizing: border-box;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
 }
-.footerIcon img{
-  width: 40px;
-  margin-left: 4vw;
-  cursor: pointer;
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
 }
-.footerLogo {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
+.fade-enter{
+  opacity: 0;
+  margin-left: 200px;
 }
-.footerLogo img {
-  margin-right: 10px;
-}
-.aboutMe{
-  cursor: pointer;
-  letter-spacing: 1px;
-}
-.bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 13px;
-  background: #2f2f40;
+.fade-leave-to{
+  opacity: 0;
+  margin-left: -200px;
 }
 </style>

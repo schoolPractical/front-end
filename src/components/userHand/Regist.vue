@@ -1,14 +1,13 @@
 <template>
   <div id="Regist" class="Regist">
     <div class="RegistBox">
-      <img src="@/assets/btn-close.png" @click="closeRegist">
       <div class="RegistTitle">注册</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
       <el-input v-model="emial" placeholder="邮箱"></el-input>
       <el-input v-model="phone" placeholder="电话号码"></el-input>
       <el-input v-model="password" placeholder="密码"></el-input>
       <el-input v-model="repassword" placeholder="再次输入密码"></el-input>
-      <el-button type="success" @click="RegistFun">注册</el-button>
+      <el-button type="success" @click="RegistFun" class="redbtn">注册</el-button>
       <div class="RegistFooter">
         <span>已经拥有账号?</span>
         <span class="newCount" @click="switchLogin">登录</span>
@@ -30,27 +29,23 @@ export default {
     };
   },
   methods: {
-    // 取消登录
-    closeRegist() {
-      this.$emit('closeRegist');
-    },
     // 登录操作
     RegistFun() {
       if (this.repassword !== this.password) {
-        alert('两次密码不一样');
+        this.$alert('两次密码不一样', {
+          confirmButtonText: '确定',
+        });
       } else if (!this.userName || !this.password || !this.emial || !this.phone) {
-        alert('请输入用户名和密码');
+        this.$alert('请填写完整内容', {
+          confirmButtonText: '确定',
+        });
       } else {
-        // 交互操作
-        //
-        // this.$ajax.user.register(this.userName, this.password, this.emial, this.phone).then((res) => {
-        //   console.log(res);
-        // });
+        // 123
       }
     },
     // 创建账号
     switchLogin() {
-      this.$emit('switch', 'showLogin');
+      this.$emit('switch', 'login');
     },
   },
 };
@@ -68,7 +63,6 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  background: rgba(0, 0, 0, .3);
 }
 .RegistBox {
   position: relative;
@@ -77,16 +71,11 @@ export default {
   padding: 30px;
   background: #fff;
 }
-.RegistBox img {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  cursor: pointer;
-}
 .RegistTitle {
   padding: 50px 30px;
   font-size: 20px;
   color: #000;
+  text-align: center;
 }
 .RegistBox .el-input {
   margin-bottom: 20px;
@@ -103,7 +92,7 @@ export default {
   color: rgb(181, 181, 192);
 }
 .newCount {
-  color: rgb(50, 208, 147);
+  color: rgb(254, 169, 166);
   cursor: pointer;
 }
 .forgot {
