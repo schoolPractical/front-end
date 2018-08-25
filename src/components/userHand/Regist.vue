@@ -1,6 +1,7 @@
 <template>
   <div id="Regist" class="Regist">
     <div class="RegistBox">
+      <img src="../../assets/logo.png" class="logo">
       <div class="RegistTitle">注册</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
       <el-input v-model="emial" placeholder="邮箱"></el-input>
@@ -72,7 +73,8 @@ export default {
   background: #fff;
 }
 .RegistTitle {
-  padding: 50px 30px;
+  padding: 40px 30px;
+  padding-top: 20px;
   font-size: 20px;
   color: #000;
   text-align: center;

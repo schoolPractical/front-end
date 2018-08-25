@@ -1,6 +1,7 @@
 <template>
   <div id="Login" class="Login">
     <div class="loginBox">
+      <img src="../../assets/logo.png" class="logo">
       <div class="loginTitle">登录</div>
       <el-input v-model="userName" placeholder="邮箱地址"></el-input>
       <el-input type="password" v-model="password" placeholder="密码"></el-input>
@@ -65,7 +66,8 @@ export default {
   background: #fff;
 }
 .loginTitle {
-  padding: 50px 30px;
+  padding: 40px 30px;
+  padding-top: 20px;
   font-size: 20px;
   text-align: center;
   color: #000;

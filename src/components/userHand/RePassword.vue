@@ -1,6 +1,7 @@
 <template>
   <div id="RePassword" class="RePassword">
     <div class="RePasswordBox">
+      <img src="../../assets/logo.png" class="logo">
       <div class="RePasswordTitle">忘记密码</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
       <el-input v-model="emial" placeholder="邮箱"></el-input>
@@ -57,7 +58,8 @@ export default {
   background: #fff;
 }
 .RePasswordTitle {
-  padding: 50px 30px;
+  padding: 40px 30px;
+  padding-top: 20px;
   font-size: 20px;
   color: #000;
   text-align: center;

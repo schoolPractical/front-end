@@ -26,3 +26,7 @@
   background: rgb(255, 144, 140) !important;
   border-color: rgb(255, 144, 140);
 }
+.logo {
+  display: block;
+  margin: 0 auto;
+}
