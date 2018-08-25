@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/view/Home';
 import Shops from '@/view/Shops';
+import Shopdetail from '@/view/Shopdetail';
 
 Vue.use(Router);
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/shops',
       component: Shops,
       name: 'Shops',
+    },
+    {
+      path: '/shopdetail',
+      component: Shopdetail,
+      name: 'Shopdetail',
     },
   ],
 });
