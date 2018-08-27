@@ -26,8 +26,7 @@
     <el-dialog
       title="添加新商品"
       :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose">
+      width="30%">
       <div>
         名称：
         <el-input v-model="newItem.productName" placeholder="请输入内容" style="width:70%"></el-input>
@@ -117,8 +116,9 @@ export default {
     },
   },
   created() {
-    const user = this.getCookie('user_login_token');
-    if (user === null) {
+    // const user = this.getCookie('user_login_token');
+    const user = sessionStorage.getItem('usertype');
+    if (user === 'admin') {
       this.userType = 0;
     }
     this.$ajax.product.getProducts().then((res) => {

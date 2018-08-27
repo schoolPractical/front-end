@@ -37,16 +37,13 @@ export default {
           const jsonData = JSON.parse(res.data);
           alert(jsonData.meta.message);
           if (jsonData.meta.success) {
+            sessionStorage.setItem('usertype', jsonData.data);
             this.$router.push({
               path: '/shops',
               name: 'Shops',
             });
           }
         });
-        /* this.$router.push({
-          path: '/shops',
-          name: 'Shops',
-        }); */
       }
     },
     // 忘记密码
