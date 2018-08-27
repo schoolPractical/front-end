@@ -27,14 +27,27 @@ export default {
   methods: {
     // 登录操作
     loginFun() {
-      if (!this.emial || !this.password) {
+      if (!this.userName || !this.password) {
         this.$alert('请输入用户名和密码', {
           confirmButtonText: '确定',
         });
       } else {
-        this.$ajax.user.signin(this.userName, this.password).then((res) => {
-          // console.log(res);
-        });
+        // 交互操作
+        /*this.$ajax.user.signin(this.userName, this.password).then((res) => {
+          console.log(res);
+          let jsonData = JSON.parse(res.data);
+          alert(jsonData.meta.message);
+          if( jsonData.meta.success ) {
+            this.$router.push({
+              path: '/shops',
+              name: 'Shops',
+            });
+          }
+        });*/
+        this.$router.push({
+              path: '/shops',
+              name: 'Shops',
+            });
       }
     },
     // 忘记密码
