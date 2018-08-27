@@ -6,6 +6,10 @@
       <el-input v-model="userName" placeholder="邮箱地址"></el-input>
       <el-input type="password" v-model="password" placeholder="密码"></el-input>
       <div class="forgot" @click="switchPage('repassword')">忘记密码</div>
+      <div class="usertype">
+        <el-radio v-model="type" label="1">用户</el-radio>
+        <el-radio v-model="type" label="0">管理员</el-radio>
+      </div>
       <el-button type="success" @click="loginFun" class="redbtn">登录</el-button>
       <div class="loginFooter">
         <span>没有账号?</span>
@@ -22,6 +26,7 @@ export default {
     return {
       userName: '',
       password: '',
+      type: '1',
     };
   },
   methods: {
@@ -31,13 +36,25 @@ export default {
         this.$alert('请输入用户名和密码', {
           confirmButtonText: '确定',
         });
-      } else {
-        // 交互操作
+      } else if (this.type === '1') {
+        // 用户登录
         this.$ajax.user.signin(this.userName, this.password).then((res) => {
           const jsonData = JSON.parse(res.data);
           alert(jsonData.meta.message);
           if (jsonData.meta.success) {
-            sessionStorage.setItem('usertype', jsonData.data);
+            sessionStorage.setItem('usertype', 'user');
+            this.$router.push({
+              path: '/shops',
+              name: 'Shops',
+            });
+          }
+        });
+      } else if (this.type === '0') {
+        // 管理员登录
+        this.$ajax.user.adminSignin(this.userName, this.password).then((res) => {
+          const jsonData = JSON.parse(res.data);
+          if (jsonData.meta.success) {
+            sessionStorage.setItem('usertype', 'admin');
             this.$router.push({
               path: '/shops',
               name: 'Shops',
@@ -108,5 +125,10 @@ export default {
   background: #fff;
   color: #000;
   cursor: pointer;
+}
+.usertype {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 </style>
