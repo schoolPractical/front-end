@@ -3,12 +3,11 @@
     <el-table :data="tableData" style="width: 100%;"
               :header-cell-style="{color:'#FB5E5F',background:'#EDF2F6','font-weight':'600'}"
               :row-style="{color:'#FB5E5F',background:'#EDF2F6','font-weight':'600'}">
-      <el-table-column align="center" prop="date" label="开始时间"></el-table-column>
-      <el-table-column align="center" prop="nums" label="库存" width="70"></el-table-column>
-      <el-table-column align="center" prop="shop" label="商品"></el-table-column>
-      <el-table-column align="center" prop="detail" label="详情页">
+      <el-table-column align="center" prop="beginTime" label="开始时间"></el-table-column>
+      <el-table-column align="center" prop="productName" label="商品"></el-table-column>
+      <el-table-column align="center" prop="productId" label="详情页">
         <template slot-scope="scope">
-          <div class="jumpBuy" @click="jumpBuy(scope.row.detail)">前往秒杀</div>
+          <div class="jumpBuy" @click="jumpBuy(scope.row.productId,scope.row.beginTime,scope.row.productName)">前往秒杀</div>
         </template>
       </el-table-column>
     </el-table>
@@ -21,31 +20,34 @@ export default {
   data() {
     return {
       tableData: [{
-        date: '2018.8.22 12:00',
-        nums: '100',
-        shop: '笔记本电脑',
-        detail: '1',
+        productId: 1,
+        beginTime: '2018-08-22 12:00',
+        productName: '笔记本',
       }, {
-        date: '2018.8.22 12:00',
-        nums: '100',
-        shop: '笔记本电脑',
-        detail: '2',
+        productId: 2,
+        beginTime: '2018-08-22 12:00',
+        productName: '电脑',
       }, {
-        date: '2018.8.22 12:00',
-        nums: '100',
-        shop: '笔记本电脑',
-        detail: '3',
+        productId: 3,
+        beginTime: '2018-08-22 12:00',
+        productName: '笔记本电脑',
       }, {
-        date: '2018.8.22 12:00',
-        nums: '100',
-        shop: '笔记本电脑',
-        detail: '4',
+        productId: 4,
+        beginTime: '2018-08-22 12:00',
+        productName: '笔',
       }],
     };
   },
+  created: function(){
+    this.$ajax.flight.getFlights(this.from, this.to, this.timeData).then((res) => {
+      let jsonData = JSON.parse(res.data);
+      alert(jsonData.meta.message);
+      this.tableData = jsonData.data;
+    });
+  },
   methods: {
-    jumpBuy(val) {
-      this.$router.push({ path: '/shopdetail', query: { id: val } });
+    jumpBuy(val1,val2,val3) {
+      this.$router.push({ path: '/secondSkill', query: { id: val1,time: val2,name: val3 } });
     },
   },
 };
