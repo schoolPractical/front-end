@@ -4,7 +4,7 @@
       <img src="../../assets/logo.png" class="logo">
       <div class="RegistTitle">注册</div>
       <el-input v-model="userName" placeholder="用户名"></el-input>
-      <el-input v-model="emial" placeholder="邮箱"></el-input>
+      <el-input v-model="email" placeholder="邮箱"></el-input>
       <el-input v-model="phone" placeholder="电话号码"></el-input>
       <el-input v-model="password" placeholder="密码"></el-input>
       <el-input v-model="repassword" placeholder="再次输入密码"></el-input>
@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       userName: '',
-      emial: '',
+      email: '',
       phone: '',
       password: '',
       repassword: '',
@@ -36,12 +36,16 @@ export default {
         this.$alert('两次密码不一样', {
           confirmButtonText: '确定',
         });
-      } else if (!this.userName || !this.password || !this.emial || !this.phone) {
+      } else if (!this.userName || !this.password || !this.email || !this.phone) {
         this.$alert('请填写完整内容', {
           confirmButtonText: '确定',
         });
       } else {
-        // 123
+        this.$ajax.user.register(this.userName, this.password, this.email, this.phone).then((res) => {
+          console.log(res);
+          let jsonData = JSON.parse(res.data);
+          alert(jsonData.meta.message);
+        });
       }
     },
     // 创建账号

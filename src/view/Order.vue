@@ -7,21 +7,13 @@
 				<th>商品名称</th>
 				<th>成交日期</th>
 			</tr>
-			<tr>
-				<td>伍杰</td>
-				<td>2018-08-23 17:32</td>
-			</tr>
-			<tr>
-				<td>伍杰</td>
-				<td>2018-08-23 17:32</td>
-			</tr>
-			<tr>
-				<td>伍杰</td>
-				<td>2018-08-23 17:32</td>
+			<tr v-for="order in orders">
+				<td>{{order.productName}}</td>
+				<td>{{order.createTime}}</td>
 			</tr>
 		</table>
 	</div>
-	<div class="back">
+	<div class="back" @click="goback()">
 		<div style="width: 4px;height: 4px"></div>
 		<div style="width: 8px;height: 8px"></div>
 		<div style="width: 12px;height: 12px"></div>
@@ -36,6 +28,22 @@
 <script>
 export default {
   name: 'Order',
+  data() {
+    return {
+      orders: [],
+    };
+  },
+  created: function(){
+    this.$ajax.order.getOrder().then((res) => {
+      let jsonData = JSON.parse(res.data);
+      this.orders = jsonData.data;
+    });
+  },
+  methods: {
+    goback(){
+      this.$router.push({ path: '/shops'});
+    },
+  },
 };
 </script>
 
@@ -90,7 +98,6 @@ export default {
 }
 .mainBody th,td{
 	width: 50%;
-	
 }
 .mainBody th{
 	line-height: 60px;

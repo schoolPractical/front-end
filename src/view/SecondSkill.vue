@@ -5,10 +5,10 @@
 		<p class="countdown">
 			<span>00</span>:<span>42</span>:<span>59</span>
 		</p>
-		<p class="commodity">南岸小霸王伍杰</p>
+		<p class="commodity">{{productName}}</p>
 		<div class="click" @click="secondSkill()"></div>
 	</div>
-	<div class="back">
+	<div class="back" @click="goback()">
 		<div style="width: 4px;height: 4px"></div>
 		<div style="width: 8px;height: 8px"></div>
 		<div style="width: 12px;height: 12px"></div>
@@ -25,21 +25,26 @@ export default {
   name: 'SecondSkill',
   data() {
     return {
+      productId: null,
+      beginTime: null,
+      productName: null,
     };
   },
   created: function(){
-    console.log(this.$route.query.id);
-    this.$ajax.flight.getFlights(this.from, this.to, this.timeData).then((res) => {
-      let jsonData = JSON.parse(res.data);
-      alert(jsonData.meta.message);
-    });
+    this.productId = this.$route.query.id;
+    this.beginTime = this.$route.query.time;
+    this.productName = this.$route.query.name;
   },
   methods: {
     secondSkill() {
-      this.$ajax.flight.getFlights(this.from, this.to, this.timeData).then((res) => {
+      this.$ajax.product.seckill(this.productId).then((res) => {
         let jsonData = JSON.parse(res.data);
         alert(jsonData.meta.message);
+        this.$router.push({ path: '/order'});
       });
+    },
+    goback(){
+      this.$router.push({ path: '/shops'});
     },
   },
 };

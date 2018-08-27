@@ -33,8 +33,7 @@ export default {
         });
       } else {
         // 交互操作
-        /*this.$ajax.user.signin(this.userName, this.password).then((res) => {
-          console.log(res);
+        this.$ajax.user.signin(this.userName, this.password).then((res) => {
           let jsonData = JSON.parse(res.data);
           alert(jsonData.meta.message);
           if( jsonData.meta.success ) {
@@ -43,11 +42,11 @@ export default {
               name: 'Shops',
             });
           }
+        });
+        /*this.$router.push({
+          path: '/shops',
+          name: 'Shops',
         });*/
-        this.$router.push({
-              path: '/shops',
-              name: 'Shops',
-            });
       }
     },
     // 忘记密码

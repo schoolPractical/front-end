@@ -19,29 +19,12 @@ export default {
   name: 'Shops',
   data() {
     return {
-      tableData: [{
-        productId: 1,
-        beginTime: '2018-08-22 12:00',
-        productName: '笔记本',
-      }, {
-        productId: 2,
-        beginTime: '2018-08-22 12:00',
-        productName: '电脑',
-      }, {
-        productId: 3,
-        beginTime: '2018-08-22 12:00',
-        productName: '笔记本电脑',
-      }, {
-        productId: 4,
-        beginTime: '2018-08-22 12:00',
-        productName: '笔',
-      }],
+      tableData: [],
     };
   },
   created: function(){
-    this.$ajax.flight.getFlights(this.from, this.to, this.timeData).then((res) => {
+    this.$ajax.product.getProducts().then((res) => {
       let jsonData = JSON.parse(res.data);
-      alert(jsonData.meta.message);
       this.tableData = jsonData.data;
     });
   },

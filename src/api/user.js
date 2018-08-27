@@ -10,7 +10,7 @@ const user = {
   },
   // 注册
   register(userName, password, email, telephone) {
-    return http().post('/user/login', {
+    return http().post('/user/register', {
       userName,
       password,
       email,
