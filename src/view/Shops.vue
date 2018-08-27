@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     // 获取cookie
-    getCookie(name) {
+    /* getCookie(name) {
       const strcookie = document.cookie;
       const arrcookie = strcookie.split('; ');
       for (let i = 0; i < arrcookie.length; i += 1) {
@@ -74,7 +74,7 @@ export default {
         }
       }
       return null;
-    },
+    }, */
     // 删除商品
     delItem(productId, index) {
       this.$confirm('确定删除该商品？', {
