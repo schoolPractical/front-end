@@ -12,10 +12,39 @@
           >
             前往秒杀
           </div>
-          <i v-if="!userType" class="el-icon-error deleteBtn" title="删除该项" @click="delItem"></i>
+          <i v-if="!userType" class="el-icon-error deleteBtn" title="删除该项"
+             @click="delItem(scope.row.productId, scope.$index)">
+          </i>
         </template>
       </el-table-column>
     </el-table>
+    <!-- 菜单 -->
+    <div class="menuBox">
+      <circle-menu-box :userType="userType" @beforeAddItem="beforeAddItem"/>
+    </div>
+    <!-- 添加新商品的dialog -->
+    <el-dialog
+      title="添加新商品"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <div>
+        名称：
+        <el-input v-model="newItem.productName" placeholder="请输入内容" style="width:70%"></el-input>
+      </div>
+      <div style="margin-top:15px">
+        价格：
+        <el-input v-model="newItem.price" placeholder="请输入内容" style="width:70%"></el-input>
+      </div>
+      <div style="margin-top:15px">
+        数量：
+        <el-input v-model="newItem.inventory" placeholder="请输入内容" style="width:70%"></el-input>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -24,24 +53,14 @@ export default {
   name: 'Shops',
   data() {
     return {
-      tableData: [{
-        beginTime: '2018.8.22 12:00',
-        productName: '笔记本电脑',
-        productId: '1',
-      }, {
-        beginTime: '2018.8.22 12:00',
-        productName: '笔记本电脑',
-        productId: '2',
-      }, {
-        beginTime: '2018.8.22 12:00',
-        productName: '笔记本电脑',
-        productId: '3',
-      }, {
-        beginTime: '2018.8.22 12:00',
-        productName: '笔记本电脑',
-        productId: '4',
-      }],
+      tableData: [],
       userType: 1, // 1为用户，0为管理员
+      dialogVisible: false, // 是否显示添加新商品的dialog
+      newItem: {
+        productName: '',
+        price: '',
+        inventory: '',
+      },
     };
   },
   methods: {
@@ -58,11 +77,43 @@ export default {
       return null;
     },
     // 删除商品
-    delItem() {
-
+    delItem(productId, index) {
+      this.$confirm('确定删除该商品？', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.$ajax.product.delProducts(productId).then(() => {
+          this.tableData.splice(index, 1);
+          this.$notify({
+            title: '删除成功',
+            type: 'success',
+          });
+        });
+      }).catch(() => {
+        this.$notify.error({
+          title: '已取消',
+        });
+      });
+    },
+    // 添加商品前的操作
+    beforeAddItem() {
+      this.dialogVisible = true;
+    },
+    // 添加商品
+    addItem() {
+      this.$ajax.product.addProducts(this.newItem).then(() => {
+        this.$notify({
+          title: '添加成功',
+          type: 'success',
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+      });
     },
     jumpBuy(id, name, beginTime, endtime) {
-      this.$router.push({ path: '/secondSkill', query: { id: id, name: name, beginTime: beginTime, endtime:endtime } });
+      this.$router.push({ path: '/secondSkill', query: { id, name, beginTime, endtime } });
     },
   },
   created() {
@@ -110,5 +161,13 @@ export default {
   top: 0;
   bottom: 0;
   cursor: pointer;
+}
+.menuBox {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  width: 48px;
+  margin: 0 auto;
 }
 </style>

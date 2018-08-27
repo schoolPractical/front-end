@@ -14,9 +14,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "element-ui": "^2.4.4",
     "vue": "^2.5.2",
+    "vue-circle-menu": "^1.1.1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
