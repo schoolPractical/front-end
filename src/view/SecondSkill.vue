@@ -3,7 +3,7 @@
 	<div class="mainBody">
 		<img class="logo" src="../assets/picture.png">
 		<p class="countdown">
-			<span>00</span>:<span>42</span>:<span>59</span>
+			<span>{{hour}}</span>:<span>{{minute}}</span>:<span>{{second}}</span>
 		</p>
 		<p class="commodity">{{productName}}</p>
 		<div class="click" @click="secondSkill()"></div>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+var timer;
 export default {
   name: 'SecondSkill',
   data() {
@@ -28,23 +29,57 @@ export default {
       productId: null,
       beginTime: null,
       productName: null,
+      hour: null,
+      minute: null,
+      second: null,
     };
   },
   created: function(){
     this.productId = this.$route.query.id;
     this.beginTime = this.$route.query.time;
     this.productName = this.$route.query.name;
+    let d1 = new Date();
+    let d2 = new Date(this.beginTime);
+    if(d2 < d1) {
+      this.second = "00";
+      this.minute = "00";
+      this.hour = "00";
+    }
+    else if(parseInt((d2 - d1) / 1000 / 60 /60) > 99){
+      this.hour = "??";
+      this.minute = "??";
+      this.second = "??";
+    }
+    else{
+      this.timeCount();
+    }
   },
   methods: {
     secondSkill() {
       this.$ajax.product.seckill(this.productId).then((res) => {
         let jsonData = JSON.parse(res.data);
         alert(jsonData.meta.message);
-        this.$router.push({ path: '/order'});
       });
     },
-    goback(){
+    goback() {
       this.$router.push({ path: '/shops'});
+    },
+    timeCount() {
+      let d1 = new Date();
+      let d2 = new Date(this.beginTime);
+      this.hour = parseInt((d2 - d1) / 1000 / 60 /60);
+      this.minute = parseInt((d2 - d1) / 1000 / 60) % 60;
+      this.second = parseInt((d2 - d1) / 1000) % 60;
+      if(this.hour < 10){
+        this.hour = "0" + this.hour;
+      }
+      if(this.minute < 10){
+        this.minute = "0" + this.minute;
+      }
+      if(this.second < 10){
+        this.second = "0" + this.second;
+      }
+      timer = setTimeout(this.timeCount,1000);
     },
   },
 };
