@@ -2,6 +2,7 @@
 <div class="SecondSkill">
 	<div class="mainBody">
 		<img class="logo" src="../assets/picture.png">
+		<p class="info">{{status}}</p>
 		<p class="countdown">
 			<span>{{hour}}</span>:<span>{{minute}}</span>:<span>{{second}}</span>
 		</p>
@@ -27,31 +28,42 @@ export default {
   data() {
     return {
       productId: null,
-      beginTime: null,
       productName: null,
+      beginTime: null,
+      endTime: null,
       hour: null,
       minute: null,
       second: null,
+      status: null
     };
   },
   created: function(){
     this.productId = this.$route.query.id;
-    this.beginTime = this.$route.query.time;
     this.productName = this.$route.query.name;
+    this.beginTime = this.$route.query.beginTime;
+    this.endTime = this.$route.query.endTime;
     let d1 = new Date();
     let d2 = new Date(this.beginTime);
-    if(d2 < d1) {
+    let d3 = new Date(this.endTime);
+    if(d1 < d2) {
+      this.status = "未开始";
+      if(parseInt((d2 - d1) / 1000 / 60 /60) > 99){
+        this.hour = "??";
+        this.minute = "??";
+        this.second = "??";
+        return;
+      }
+      this.timeCount(this.beginTime);
+    }
+    else if(d1 < d3) {
+      this.status = "剩余时间";
+      this.timeCount(this.endTime);
+    }
+    else {
+      this.status = "已结束";
       this.second = "00";
       this.minute = "00";
       this.hour = "00";
-    }
-    else if(parseInt((d2 - d1) / 1000 / 60 /60) > 99){
-      this.hour = "??";
-      this.minute = "??";
-      this.second = "??";
-    }
-    else{
-      this.timeCount();
     }
   },
   methods: {
@@ -64,9 +76,9 @@ export default {
     goback() {
       this.$router.push({ path: '/shops'});
     },
-    timeCount() {
+    timeCount(time) {
       let d1 = new Date();
-      let d2 = new Date(this.beginTime);
+      let d2 = new Date(time);
       this.hour = parseInt((d2 - d1) / 1000 / 60 /60);
       this.minute = parseInt((d2 - d1) / 1000 / 60) % 60;
       this.second = parseInt((d2 - d1) / 1000) % 60;
@@ -79,7 +91,7 @@ export default {
       if(this.second < 10){
         this.second = "0" + this.second;
       }
-      timer = setTimeout(this.timeCount,1000);
+      timer = setTimeout(this.timeCount(time),1000);
     },
   },
 };
@@ -127,6 +139,13 @@ export default {
 	height: 247px;
 	margin: 60px 0px;
 }
+.info{
+	lline-height: 100px;
+	font-size: 80px;
+	font-weight: 900;
+	color: red;
+	text-align: center;
+}
 .countdown{
 	line-height: 100px;
 	font-size: 80px;
@@ -148,7 +167,7 @@ export default {
 	color: black;
 }
 .commodity{
-	margin-top: 100px;
+	margin-top: 50px;
 	line-height: 150px;
 	text-align: center;
 	font-size: 50px;
@@ -158,7 +177,7 @@ export default {
 .click{
 	width: 221px;
 	height: 160px;
-	margin: 100px auto;
+	margin: 50px auto;
 	background-image: url("../assets/按钮1.png");
 }
 .click:active{

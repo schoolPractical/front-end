@@ -8,7 +8,7 @@
       <el-table-column align="center" prop="productId" label="详情页">
         <template slot-scope="scope">
           <div class="jumpBuy" :class="userType===0?'admiBtn':''"
-               @click="jumpBuy(scope.row.productId,scope.row.beginTime,scope.row.productName)"
+               @click="jumpBuy(scope.row.productId,scope.row.productName,scope.row.beginTime,scope.row.endTime)"
           >
             前往秒杀
           </div>
@@ -61,8 +61,8 @@ export default {
     delItem() {
 
     },
-    jumpBuy(val1, val2, val3) {
-      this.$router.push({ path: '/secondSkill', query: { id: val1, time: val2, name: val3 } });
+    jumpBuy(id, name, beginTime, endtime) {
+      this.$router.push({ path: '/secondSkill', query: { id: id, name: name, beginTime: beginTime, endtime:endtime } });
     },
   },
   created() {
