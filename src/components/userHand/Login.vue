@@ -34,19 +34,19 @@ export default {
       } else {
         // 交互操作
         this.$ajax.user.signin(this.userName, this.password).then((res) => {
-          let jsonData = JSON.parse(res.data);
+          const jsonData = JSON.parse(res.data);
           alert(jsonData.meta.message);
-          if( jsonData.meta.success ) {
+          if (jsonData.meta.success) {
             this.$router.push({
               path: '/shops',
               name: 'Shops',
             });
           }
         });
-        /*this.$router.push({
+        /* this.$router.push({
           path: '/shops',
           name: 'Shops',
-        });*/
+        }); */
       }
     },
     // 忘记密码

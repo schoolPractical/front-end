@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 // 导入element-ui
-import { Input, Button, Alert, MessageBox, Table, TableColumn } from 'element-ui';
+import { Input, Button, Alert, MessageBox, Table, TableColumn, Icon } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import API from '@/api/index';
@@ -18,6 +18,7 @@ Vue.use(Button);
 Vue.use(Alert);
 Vue.use(Table);
 Vue.use(TableColumn);
+Vue.use(Icon);
 Vue.prototype.$alert = MessageBox.alert;
 
 Vue.config.productionTip = false;

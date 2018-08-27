@@ -7,11 +7,12 @@
       <el-table-column align="center" prop="productName" label="商品"></el-table-column>
       <el-table-column align="center" prop="productId" label="详情页">
         <template slot-scope="scope">
-          <div class="jumpBuy"
+          <div class="jumpBuy" :class="userType===0?'admiBtn':''"
                @click="jumpBuy(scope.row.productId,scope.row.beginTime,scope.row.productName)"
           >
             前往秒杀
           </div>
+          <i v-if="!userType" class="el-icon-error deleteBtn" title="删除该项" @click="delItem"></i>
         </template>
       </el-table-column>
     </el-table>
@@ -23,19 +24,56 @@ export default {
   name: 'Shops',
   data() {
     return {
-      tableData: [],
+      tableData: [{
+        beginTime: '2018.8.22 12:00',
+        productName: '笔记本电脑',
+        productId: '1',
+      }, {
+        beginTime: '2018.8.22 12:00',
+        productName: '笔记本电脑',
+        productId: '2',
+      }, {
+        beginTime: '2018.8.22 12:00',
+        productName: '笔记本电脑',
+        productId: '3',
+      }, {
+        beginTime: '2018.8.22 12:00',
+        productName: '笔记本电脑',
+        productId: '4',
+      }],
+      userType: 1, // 1为用户，0为管理员
     };
   },
-  created: function(){
-    this.$ajax.product.getProducts().then((res) => {
-      let jsonData = JSON.parse(res.data);
-      this.tableData = jsonData.data;
-    });
-  },
   methods: {
+    // 获取cookie
+    getCookie(name) {
+      const strcookie = document.cookie;
+      const arrcookie = strcookie.split('; ');
+      for (let i = 0; i < arrcookie.length; i += 1) {
+        const arr = arrcookie[i].split('=');
+        if (arr[0] === name) {
+          return arr[1];
+        }
+      }
+      return null;
+    },
+    // 删除商品
+    delItem() {
+
+    },
     jumpBuy(val1, val2, val3) {
       this.$router.push({ path: '/secondSkill', query: { id: val1, time: val2, name: val3 } });
     },
+  },
+  created() {
+    const user = this.getCookie('user_login_token');
+    if (user === null) {
+      this.userType = 0;
+    }
+    this.$ajax.product.getProducts().then((res) => {
+      const jsonData = JSON.parse(res.data);
+      this.tableData = jsonData.data;
+    });
   },
 };
 </script>
@@ -57,6 +95,20 @@ export default {
   line-height: 30px;
   border-radius: 50px;
   background: #fcc0c0;
+  cursor: pointer;
+}
+.shops .admiBtn {
+  display: inline-block;
+  margin-left: 15%;
+  margin-right: 5%;
+}
+.deleteBtn {
+  font-size: 20px;
+  height: 20px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
   cursor: pointer;
 }
 </style>
