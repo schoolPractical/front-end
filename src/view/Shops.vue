@@ -7,7 +7,11 @@
       <el-table-column align="center" prop="productName" label="商品"></el-table-column>
       <el-table-column align="center" prop="productId" label="详情页">
         <template slot-scope="scope">
-          <div class="jumpBuy" @click="jumpBuy(scope.row.productId,scope.row.beginTime,scope.row.productName)">前往秒杀</div>
+          <div class="jumpBuy"
+               @click="jumpBuy(scope.row.productId,scope.row.beginTime,scope.row.productName)"
+          >
+            前往秒杀
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -29,8 +33,8 @@ export default {
     });
   },
   methods: {
-    jumpBuy(val1,val2,val3) {
-      this.$router.push({ path: '/secondSkill', query: { id: val1,time: val2,name: val3 } });
+    jumpBuy(val1, val2, val3) {
+      this.$router.push({ path: '/secondSkill', query: { id: val1, time: val2, name: val3 } });
     },
   },
 };
