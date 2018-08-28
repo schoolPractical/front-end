@@ -40,7 +40,6 @@ export default {
         // 用户登录
         this.$ajax.user.signin(this.userName, this.password).then((res) => {
           const jsonData = JSON.parse(res.data);
-          alert(jsonData.meta.message);
           if (jsonData.meta.success) {
             sessionStorage.setItem('usertype', 'user');
             this.$router.push({

@@ -41,7 +41,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="addItem()">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -101,6 +101,7 @@ export default {
     },
     // 添加商品
     addItem() {
+      this.dialogVisible = false
       this.$ajax.product.addProducts(this.newItem).then(() => {
         this.$notify({
           title: '添加成功',

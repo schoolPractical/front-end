@@ -9,9 +9,9 @@ const user = {
     }).then(res => res);
   },
   // 管理员登录
-  adminSignin(userName, password) {
-    return http().post('/user/login', {
-      userName,
+  adminSignin(adminId, password) {
+    return http().post('/admin/login', {
+      adminId,
       password,
     }).then(res => res);
   },
